@@ -17,11 +17,3 @@ html {
 .container {
   @apply max-w-6xl mx-auto px-4;
 }
-
-.text-navy {
-  @apply text-navy;
-}
-
-.font-sans {
-  @apply font-sans;
-}
