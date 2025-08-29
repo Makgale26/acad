@@ -1,6 +1,6 @@
-// src/App.js
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './App.css';
+import logo from "./assets/Logo.png";
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -8,16 +8,23 @@ function App() {
   const navItems = ['Home', 'About Us', 'Courses', 'Grades', 'Achievements', 'Contact'];
 
   return (
-    <div className="min-h-screen font-sans bg-gray-50">
+    <div className="min-h-screen font-sans bg-navy">
       {/* Navbar */}
-      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <nav className="bg-navy border-b border-gray-200 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <svg className="w-6 h-6 text-navy" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5V9.23L2 12v7.77z"/>
-            </svg>
-            <span className="text-xl font-bold text-navy">Thuto Thabeng Learning Center</span>
+          <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-3">
+  <div className="w-12 h-12 bg-navy rounded-lg flex items-center justify-center logo-container">
+    {/* Logo Image */}
+    <img
+      src={logo}
+      alt="Thuto Thabeng Logo"
+      className="w-10 h-10 object-contain"
+    />
+  </div>
+</div>
+            <span className="text-xl font-bold text-white">Thuto Thabeng Learning Center</span>
           </div>
 
           {/* Desktop Menu */}
@@ -78,12 +85,15 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="bg-navy text-white py-20">
+      <section 
+        id="home" 
+        className="relative bg-navy text-white py-20 bg-cover bg-center bg-no-repeat hero-gradient"
+      >
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-10 md:mb-0">
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight">
+            <h1 className="text-4xl md:text-5xl font-bold leading-tight text-yellow-400">
               Excellence in Education{" "}
-              <span className="text-yellow-400">Grades 7-12</span>
+              <span className="text-white">Grades 7-12</span>
             </h1>
             <p className="text-lg mt-6 text-gray-100 max-w-lg">
               Empowering students to achieve academic excellence and prepare for university success through innovative teaching methods and personalized support.
@@ -98,17 +108,25 @@ function App() {
             </div>
           </div>
           <div className="md:w-1/2 flex justify-center">
-            <img
-              src="https://via.placeholder.com/600x400?text=Classroom"
-              alt="Students learning at Thuto Thabeng"
-              className="rounded-xl shadow-xl"
-            />
+            <div className="w-full max-w-md">
+              <div className="bg-gray-800 bg-opacity-50 p-8 rounded-xl shadow-xl border border-yellow-400">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-8 h-8 text-navy" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5V9.23L2 12v7.77z"/>
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-bold text-yellow-400 mb-2">Thuto Thabeng</h3>
+                  <p className="text-white text-sm">Excellence in Education</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section id="about-us" className="py-16 bg-gray-50">
+      <section id="about-us" className="py-16 bg-navy">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
@@ -118,8 +136,8 @@ function App() {
               { value: "4", label: "Years of Excellence", color: "text-red-600" }
             ].map((stat, index) => (
               <div key={index} className="p-6">
-                <div className={`text-3xl font-bold ${stat.color}`}>{stat.value}</div>
-                <div className="text-gray-600 text-sm mt-1">{stat.label}</div>
+                <div className="text-3xl font-bold text-yellow-400">{stat.value}</div>
+                <div className="text-white text-sm mt-1">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -127,10 +145,10 @@ function App() {
       </section>
 
       {/* About Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-gray-900">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-navy mb-6">About Thuto Thabeng Learning Center</h2>
-          <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold text-center text-yellow-400 mb-6">About Thuto Thabeng Learning Center</h2>
+          <p className="text-center text-white mb-12 max-w-3xl mx-auto">
             Dedicated to providing quality education and nurturing future leaders through comprehensive academic programs from Grade 7 to Grade 12.
           </p>
 
@@ -166,8 +184,8 @@ function App() {
                     {item.icon}
                   </div>
                   <div>
-                    <h3 className="font-bold text-navy">{item.title}</h3>
-                    <p className="text-gray-600">{item.desc}</p>
+                    <h3 className="font-bold text-yellow-400">{item.title}</h3>
+                    <p className="text-white">{item.desc}</p>
                   </div>
                 </div>
               ))}
@@ -177,10 +195,10 @@ function App() {
       </section>
 
       {/* Courses Section */}
-      <section id="courses" className="py-16 bg-gray-50">
+      <section id="courses" className="py-16 bg-navy">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-navy mb-6">Courses & Subjects Offered</h2>
-          <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold text-center text-yellow-400 mb-6">Courses & Subjects Offered</h2>
+          <p className="text-center text-white mb-12 max-w-3xl mx-auto">
             Comprehensive curriculum designed to prepare students for university entrance and future career success.
           </p>
 
@@ -226,10 +244,10 @@ function App() {
       </section>
 
       {/* Grades Section */}
-      <section id="grades" className="py-16 bg-white">
+      <section id="grades" className="py-16 bg-gray-900">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-navy mb-6">Grade Levels We Serve</h2>
-          <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold text-center text-yellow-400 mb-6">Grade Levels We Serve</h2>
+          <p className="text-center text-white mb-12 max-w-3xl mx-auto">
             Comprehensive education pathway from Grade 7 through Grade 12, preparing students for university and beyond.
           </p>
 
@@ -259,13 +277,13 @@ function App() {
             ].map((grade, index) => (
               <div
                 key={index}
-                className={`p-6 rounded-xl shadow-lg border-l-4 ${grade.color} bg-gray-50`}
+                className={`p-6 rounded-xl shadow-lg border-l-4 ${grade.color} bg-gray-800`}
               >
-                <h3 className="text-xl font-bold text-navy mb-2">{grade.title}</h3>
-                <p className="text-gray-600 mb-4 text-sm">{grade.subtitle}</p>
+                <h3 className="text-xl font-bold text-yellow-400 mb-2">{grade.title}</h3>
+                <p className="text-white mb-4 text-sm">{grade.subtitle}</p>
                 <ul className="space-y-2">
                   {grade.items.map((item, i) => (
-                    <li key={i} className="flex items-center text-gray-700">
+                    <li key={i} className="flex items-center text-white">
                       <span className="mr-2 text-green-500">{grade.icon}</span>
                       {item}
                     </li>
@@ -278,10 +296,10 @@ function App() {
       </section>
 
       {/* Achievements / Testimonials */}
-      <section id="achievements" className="py-16 bg-white">
+      <section id="achievements" className="py-16 bg-navy">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-navy mb-6">Student Success Stories</h2>
-          <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold text-center text-yellow-400 mb-6">Student Success Stories</h2>
+          <p className="text-center text-white mb-12 max-w-3xl mx-auto">
             Hear from our students and parents about how Thuto Thabeng Learning Center made a difference.
           </p>
 
@@ -303,58 +321,138 @@ function App() {
                 role: "Grade 12 Graduate"
               }
             ].map((testimonial, index) => (
-              <div key={index} className="p-6 border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition">
-                <p className="text-gray-700 italic mb-4">"{testimonial.quote}"</p>
-                <div className="font-bold text-navy">{testimonial.author}</div>
-                <div className="text-sm text-gray-500">{testimonial.role}</div>
+              <div key={index} className="p-6 border border-gray-600 rounded-xl shadow-sm hover:shadow-md transition bg-gray-800">
+                <p className="text-white italic mb-4">"{testimonial.quote}"</p>
+                <div className="font-bold text-yellow-400">{testimonial.author}</div>
+                <div className="text-sm text-gray-300">{testimonial.role}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-16 bg-gray-50">
+      {/* 3D Gallery Section */}
+      <section className="py-16 bg-gray-900">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-navy mb-6">Get In Touch</h2>
-          <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold text-center text-yellow-400 mb-6">Our Learning Environment</h2>
+          <p className="text-center text-white mb-12 max-w-3xl mx-auto">
+            Take a virtual tour of our modern facilities and see where excellence happens.
+          </p>
+
+          <div className="gallery-container">
+            <div className="gallery-track">
+              {[
+  {
+    id: 1,
+    title: "Modern Classrooms",
+    description: "State-of-the-art learning spaces designed for engagement",
+    image: "./src/assets/Gallery/1.png"
+  },
+  {
+    id: 2,
+    title: "Science Laboratory",
+    description: "Fully equipped labs for hands-on scientific exploration",
+    image: "./src/assets/Gallery/2.png"
+  },
+  {
+    id: 3,
+    title: "Library & Study Areas",
+    description: "Quiet spaces for focused learning and research",
+    image: "./src/assets/Gallery/3.png"
+  },
+  {
+    id: 4,
+    title: "Computer Lab",
+    description: "Modern technology for digital literacy and coding",
+    image: "./src/assets/Gallery/4.png"
+  },
+  {
+    id: 5,
+    title: "Sports Facilities",
+    description: "Active learning spaces for physical education",
+    image: "./src/assets/Gallery/5.png"
+  },
+  {
+    id: 6,
+    title: "Art Studio",
+    description: "Creative spaces for artistic expression and development",
+    image: "./src/assets/Gallery/6.png"
+  }
+]
+.map((item) => (
+                <div key={item.id} className="gallery-card">
+                  <div className="gallery-card-inner">
+                    <div className="gallery-card-front">
+                      <img 
+                        src={item.image} 
+                        alt={item.title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="gallery-overlay">
+                        <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
+                      </div>
+                    </div>
+                    <div className="gallery-card-back">
+                      <div className="p-6 h-full flex flex-col justify-center">
+                        <h3 className="text-xl font-bold text-yellow-400 mb-4">{item.title}</h3>
+                        <p className="text-white text-sm leading-relaxed">{item.description}</p>
+                        <div className="mt-4">
+                          <button className="bg-yellow-400 text-navy px-4 py-2 rounded-md font-semibold hover:bg-yellow-500 transition">
+                            Learn More
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-16 bg-navy">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center text-yellow-400 mb-6">Get In Touch</h2>
+          <p className="text-center text-white mb-12 max-w-3xl mx-auto">
             Have questions about enrollment, courses, or schedules? Reach out to us!
           </p>
 
-          <div className="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+          <div className="max-w-3xl mx-auto bg-gray-800 p-8 rounded-xl shadow-lg">
             <form className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-gray-700 font-medium mb-2">
+                  <label htmlFor="name" className="block text-yellow-400 font-medium mb-2">
                     Full Name
                   </label>
                   <input
                     type="text"
                     id="name"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-3 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-gray-700 text-white"
                     placeholder="John Doe"
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-gray-700 font-medium mb-2">
+                  <label htmlFor="email" className="block text-yellow-400 font-medium mb-2">
                     Email Address
                   </label>
                   <input
                     type="email"
                     id="email"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-3 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-gray-700 text-white"
                     placeholder="john@example.com"
                   />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="subject" className="block text-gray-700 font-medium mb-2">
+                <label htmlFor="subject" className="block text-yellow-400 font-medium mb-2">
                   Subject
                 </label>
                 <select
                   id="subject"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-3 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-gray-700 text-white"
                 >
                   <option value="">Choose a topic</option>
                   <option value="admissions">Admissions</option>
@@ -365,13 +463,13 @@ function App() {
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-gray-700 font-medium mb-2">
+                <label htmlFor="message" className="block text-yellow-400 font-medium mb-2">
                   Message
                 </label>
                 <textarea
                   id="message"
                   rows={4}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-3 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-gray-700 text-white"
                   placeholder="How can we help you?"
                 ></textarea>
               </div>
@@ -379,7 +477,7 @@ function App() {
               <div>
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-md transition"
+                  className="w-full bg-yellow-400 hover:bg-yellow-500 text-navy font-semibold py-3 px-6 rounded-md transition"
                 >
                   Send Message
                 </button>
