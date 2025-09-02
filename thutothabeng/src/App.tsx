@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import logo from "./assets/Logo.png";
+import bgImage from "../assets/Gallery/1.png";
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -165,7 +166,12 @@ function App() {
         </div>
 
         {/* Title + Tagline */}
-        <h3 className="text-2xl font-bold text-yellow-400">Thuto Thabeng</h3>
+        <h3
+  className="text-2xl font-bold text-yellow-400"
+  style={{ backgroundImage: `url(${bgImage})` }}
+>
+  Thuto Thabeng
+</h3>
         <p className="text-white text-sm tracking-wide">
           Excellence in Education
         </p>
