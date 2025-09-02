@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import logo from "./assets/Logo.png";
-import bgImage from "../assets/Gallery/1.png";
+import bgImage from "./assets/Gallery/1.png";
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -153,31 +153,30 @@ function App() {
           </div>
           <div className="md:w-1/2 flex justify-center">
   <div className="w-full max-w-md">
-    <div className="bg-gray-800 bg-opacity-50 p-8 rounded-xl shadow-xl border border-yellow-400 hover:shadow-yellow-400/30 transition">
-      <div className="text-center space-y-4">
-        
-        {/* Logo inside container */}
-        <div className="w-14 h-14 bg-navy rounded-lg flex items-center justify-center mx-auto shadow-md">
-          <img
-            src={logo}
-            alt="Thuto Thabeng Logo"
-            className="w-10 h-10 object-contain"
-          />
-        </div>
-
-        {/* Title + Tagline */}
-        <h3
-  className="text-2xl font-bold text-yellow-400"
-  style={{ backgroundImage: `url(${bgImage})` }}
->
-  Thuto Thabeng
-</h3>
-        <p className="text-white text-sm tracking-wide">
-          Excellence in Education
-        </p>
+  <div
+    className="bg-gray-800 bg-opacity-50 p-8 rounded-xl shadow-xl border border-yellow-400 hover:shadow-yellow-400/30 transition"
+    style={{ backgroundImage: `url(${bgImage})`, backgroundSize: "cover", backgroundPosition: "center" }}
+  >
+    <div className="text-center space-y-4">
+      
+      {/* Logo inside container */}
+      <div className="w-14 h-14 bg-navy rounded-lg flex items-center justify-center mx-auto shadow-md">
+        <img
+          src={logo}
+          alt="Thuto Thabeng Logo"
+          className="w-10 h-10 object-contain"
+        />
       </div>
+
+      {/* Title + Tagline */}
+      <h3 className="text-2xl font-bold text-yellow-400">Thuto Thabeng</h3>
+      <p className="text-white text-sm tracking-wide">
+        Excellence in Education
+      </p>
     </div>
   </div>
+</div>
+
 </div>
         </div>
       </section>
