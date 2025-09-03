@@ -1,13 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './App.css';
 import logo from "./assets/Logo.png";
-import bgImage from "./../public/Gallery/1.png";
-import img1 from "./../public/Gallery/1.png";
-import img2 from "./../public/Gallery/2.png";
-import img3 from "./../public/Gallery/3.png";
-import img4 from "./../public/Gallery/4.png";
-import img5 from "./../public/Gallery/5.png";
-import img6 from "./../public/Gallery/6.png";
+import bgImage from "./assets/Gallery/1.png"; // ✅ Correct path
+import img1 from "./assets/Gallery/1.png";
+import img2 from "./assets/Gallery/2.png";
+import img3 from "./assets/Gallery/3.png";
+import img4 from "./assets/Gallery/4.png";
+import img5 from "./assets/Gallery/5.png";
+import img6 from "./assets/Gallery/6.png";
+import emailjs from '@emailjs/browser';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -50,7 +51,6 @@ function App() {
       {/* Navbar */}
       <nav className="bg-navy border-b border-gray-700 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-          {/* Logo */}
           <div className="flex items-center space-x-3">
             <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
               <img src={logo} alt="Thuto Thabeng Logo" className="w-10 h-10 object-contain" />
@@ -58,7 +58,6 @@ function App() {
             <span className="text-xl font-bold text-white">Thuto Thabeng Learning Center</span>
           </div>
 
-          {/* Desktop Menu */}
           <ul className="hidden md:flex space-x-8">
             {navItems.map((item) => {
               const sectionId = item.toLowerCase().replace(/\s+/g, '-');
@@ -82,7 +81,6 @@ function App() {
             })}
           </ul>
 
-          {/* Mobile Menu Button */}
           <button
             className="md:hidden text-white hover:text-yellow-400"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -105,7 +103,6 @@ function App() {
           </button>
         </div>
 
-        {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden bg-navy border-t border-gray-700">
             <ul className="container mx-auto px-4 py-4 space-y-4">
@@ -161,14 +158,10 @@ function App() {
           </div>
           <div className="md:w-1/2 flex justify-center">
             <div className="w-full max-w-md">
-              <div
-                className="bg-gray-800 bg-opacity-50 p-8 rounded-xl shadow-xl border border-yellow-400 hover:shadow-yellow-400/30 transition"
-              >
+              <div className="bg-gray-800 bg-opacity-50 p-8 rounded-xl shadow-xl border border-yellow-400 hover:shadow-yellow-400/30 transition">
                 <div className="text-center space-y-4">
                   <div className="w-14 h-14 bg-navy rounded-lg flex items-center justify-center mx-auto shadow-md">
-                    <img src={logo} 
-                    alt="Thuto Thabeng Logo"
-                     className="w-10 h-10 object-contain" />
+                    <img src={logo} alt="Thuto Thabeng Logo" className="w-10 h-10 object-contain" />
                   </div>
                   <h3 className="text-2xl font-bold text-yellow-400">Thuto Thabeng</h3>
                   <p className="text-white text-sm tracking-wide">
@@ -437,7 +430,7 @@ function App() {
         </div>
       </section>
 
-      {/* Gallery Component */}
+      {/* Gallery */}
       <Gallery />
 
       {/* Contact Section */}
@@ -448,71 +441,132 @@ function App() {
             Have questions about enrollment, courses, or schedules? Reach out to us!
           </p>
 
-          <div className="max-w-3xl mx-auto bg-gray-800 p-8 rounded-xl shadow-lg">
-            <form className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="name" className="block text-yellow-400 font-medium mb-2">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    className="w-full px-4 py-3 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-gray-700 text-white"
-                    placeholder="John Doe"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-yellow-400 font-medium mb-2">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    className="w-full px-4 py-3 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-gray-700 text-white"
-                    placeholder="john@example.com"
-                  />
-                </div>
-              </div>
+          {(() => {
+            // 🔁 REPLACE THESE WITH YOUR ACTUAL KEYS FROM EMAILJS
+            const SERVICE_ID = "service_your_id";      // ← e.g., "service_abc123"
+            const TEMPLATE_ID = "template_your_id";    // ← e.g., "template_xyz789"
+            const PUBLIC_KEY = "your_public_key";      // ← e.g., "pub_key_123456"
 
-              <div>
-                <label htmlFor="subject" className="block text-yellow-400 font-medium mb-2">
-                  Subject
-                </label>
-                <select
-                  id="subject"
-                  className="w-full px-4 py-3 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-gray-700 text-white"
-                >
-                  <option value="">Choose a topic</option>
-                  <option value="admissions">Admissions</option>
-                  <option value="courses">Course Inquiry</option>
-                  <option value="tutoring">Private Tutoring</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
+            const [isSent, setIsSent] = useState(false);
+            const [isError, setIsError] = useState(false);
+            const [isLoading, setIsLoading] = useState(false);
+           const formRef = useRef<HTMLInputElement>(null); // ✅ Correct useRef
 
-              <div>
-                <label htmlFor="message" className="block text-yellow-400 font-medium mb-2">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  rows={4}
-                  className="w-full px-4 py-3 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-gray-700 text-white"
-                  placeholder="How can we help you?"
-                ></textarea>
-              </div>
+            const sendEmail = (e: { preventDefault: () => void; }) => {
+              e.preventDefault();
+              setIsLoading(true);
+              setIsSent(false);
+              setIsError(false);
 
-              <div>
-                <button
-                  type="submit"
-                  className="w-full bg-yellow-400 hover:bg-yellow-500 text-navy font-semibold py-3 px-6 rounded-md transition"
-                >
-                  Send Message
-                </button>
+              emailjs
+                .sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, {
+                  publicKey: PUBLIC_KEY,
+                })
+                .then(
+                  () => {
+                    setIsLoading(false);
+                    setIsSent(true);
+                    setTimeout(() => setIsSent(false), 5000);
+                    formRef.current.reset();
+                  },
+                  (error) => {
+                    console.error("EmailJS Error:", error);
+                    setIsLoading(false);
+                    setIsError(true);
+                    setTimeout(() => setIsError(false), 5000);
+                  }
+                );
+            };
+
+            return (
+              <div className="max-w-3xl mx-auto bg-gray-800 p-8 rounded-xl shadow-lg">
+                {isSent && (
+                  <div className="mb-6 p-4 bg-green-600 text-white text-center rounded-md">
+                    ✅ Thank you! Your message has been sent successfully.
+                  </div>
+                )}
+                {isError && (
+                  <div className="mb-6 p-4 bg-red-600 text-white text-center rounded-md">
+                    ❌ Failed to send message. Please try again.
+                  </div>
+                )}
+
+                <form ref={formRef} onSubmit={sendEmail} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label htmlFor="name" className="block text-yellow-400 font-medium mb-2">
+                        Full Name
+                      </label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="user_name"
+                        className="w-full px-4 py-3 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-gray-700 text-white"
+                        placeholder="John Doe"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="block text-yellow-400 font-medium mb-2">
+                        Email Address
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="user_email"
+                        className="w-full px-4 py-3 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-gray-700 text-white"
+                        placeholder="john@example.com"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label htmlFor="subject" className="block text-yellow-400 font-medium mb-2">
+                      Subject
+                    </label>
+                    <select
+                      id="subject"
+                      name="subject"
+                      className="w-full px-4 py-3 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-gray-700 text-white"
+                      required
+                    >
+                      <option value="">Choose a topic</option>
+                      <option value="Admissions">Admissions</option>
+                      <option value="Courses">Course Inquiry</option>
+                      <option value="Tutoring">Private Tutoring</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label htmlFor="message" className="block text-yellow-400 font-medium mb-2">
+                      Message
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows={4}
+                      className="w-full px-4 py-3 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-gray-700 text-white"
+                      placeholder="How can we help you?"
+                      required
+                    ></textarea>
+                  </div>
+
+                  <div>
+                    <button
+                      type="submit"
+                      disabled={isLoading}
+                      className={`w-full font-semibold py-3 px-6 rounded-md transition
+                        ${isLoading ? 'bg-gray-500 cursor-not-allowed' : 'bg-yellow-400 hover:bg-yellow-500'} text-navy`}
+                    >
+                      {isLoading ? 'Sending...' : 'Send Message'}
+                    </button>
+                  </div>
+                </form>
               </div>
-            </form>
-          </div>
+            );
+          })()}
         </div>
       </section>
 
@@ -526,7 +580,7 @@ function App() {
   );
 }
 
-// ✅ Named export for Gallery
+// ✅ Gallery Component (Moved before usage)
 export function Gallery() {
   const galleryItems = [
     { id: 1, title: "Modern Classrooms", description: "State-of-the-art learning spaces designed for engagement", image: img1 },
