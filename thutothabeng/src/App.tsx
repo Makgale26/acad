@@ -1,11 +1,17 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import logo from "./assets/Logo.png";
-import bgImage from "./assets/Gallery/1.png";
+import bgImage from "./../public/Gallery/1.png";
+import img1 from "./../public/Gallery/1.png";
+import img2 from "./../public/Gallery/2.png";
+import img3 from "./../public/Gallery/3.png";
+import img4 from "./../public/Gallery/4.png";
+import img5 from "./../public/Gallery/5.png";
+import img6 from "./../public/Gallery/6.png";
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home'); // Default
+  const [activeSection, setActiveSection] = useState('home');
 
   const navItems = ['Home', 'About Us', 'Courses', 'Grades', 'Achievements', 'Contact'];
 
@@ -16,7 +22,7 @@ function App() {
 
     const observers = sections.map((section) => {
       const element = document.getElementById(section);
-      if (!element) return;
+      if (!element) return null;
 
       const observer = new IntersectionObserver(
         (entries) => {
@@ -25,7 +31,7 @@ function App() {
             setActiveSection(section);
           }
         },
-        { threshold: 0.6 } // 60% visibility
+        { threshold: 0.6 }
       );
 
       observer.observe(element);
@@ -128,10 +134,12 @@ function App() {
           </div>
         )}
       </nav>
+
       {/* Hero Section */}
       <section 
         id="home" 
         className="relative bg-navy text-white py-20 bg-cover bg-center bg-no-repeat hero-gradient"
+        style={{ backgroundImage: `url(${bgImage})` }}
       >
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-10 md:mb-0">
@@ -143,41 +151,33 @@ function App() {
               Empowering students to achieve academic excellence and prepare for university success through innovative teaching methods and personalized support.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <button className="bg-yellow-400 hover:bg-cyan-500  text-navy font-semibold px-6 py-3 rounded-md transition">
+              <button className="bg-yellow-400 hover:bg-cyan-500 text-navy font-semibold px-6 py-3 rounded-md transition">
                 Book a Session
               </button>
-              <button className="bg-yellow-400 hover:bg-cyan-500 font-semibold px-6 py-3 rounded-md transition">
+              <button className="bg-yellow-400 hover:bg-cyan-500 text-navy font-semibold px-6 py-3 rounded-md transition">
                 Learn More
               </button>
             </div>
           </div>
           <div className="md:w-1/2 flex justify-center">
-  <div className="w-full max-w-md">
-  <div
-    className="bg-gray-800 bg-opacity-50 p-8 rounded-xl shadow-xl border border-yellow-400 hover:shadow-yellow-400/30 transition"
-    style={{ backgroundImage: `url(${bgImage})`, backgroundSize: "cover", backgroundPosition: "center" }}
-  >
-    <div className="text-center space-y-4">
-      
-      {/* Logo inside container */}
-      <div className="w-14 h-14 bg-navy rounded-lg flex items-center justify-center mx-auto shadow-md">
-        <img
-          src={logo}
-          alt="Thuto Thabeng Logo"
-          className="w-10 h-10 object-contain"
-        />
-      </div>
-
-      {/* Title + Tagline */}
-      <h3 className="text-2xl font-bold text-yellow-400">Thuto Thabeng</h3>
-      <p className="text-white text-sm tracking-wide">
-        Excellence in Education
-      </p>
-    </div>
-  </div>
-</div>
-
-</div>
+            <div className="w-full max-w-md">
+              <div
+                className="bg-gray-800 bg-opacity-50 p-8 rounded-xl shadow-xl border border-yellow-400 hover:shadow-yellow-400/30 transition"
+              >
+                <div className="text-center space-y-4">
+                  <div className="w-14 h-14 bg-navy rounded-lg flex items-center justify-center mx-auto shadow-md">
+                    <img src={logo} 
+                    alt="Thuto Thabeng Logo"
+                     className="w-10 h-10 object-contain" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-yellow-400">Thuto Thabeng</h3>
+                  <p className="text-white text-sm tracking-wide">
+                    Excellence in Education
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -201,377 +201,52 @@ function App() {
       </section>
 
       {/* About Section */}
-<section className="py-16 bg-gray-900">
-  <div className="container mx-auto px-4">
-    {/* Section Heading */}
-    <h2 className="text-3xl font-bold text-center text-yellow-400 mb-6">
-      About Thuto Thabeng Learning Center
-    </h2>
-    <p className="text-center text-gray-300 mb-12 max-w-3xl mx-auto">
-      Dedicated to providing quality education and nurturing future leaders through comprehensive academic programs from Grade 7 to Grade 12.
-    </p>
-
-    {/* Content: Image + Features */}
-    <div className="flex flex-col md:flex-row items-center gap-12">
-      {/* Image */}
-      <img
-        src="./src/assets/Gallery/1.png"
-        alt="Students studying in our library"
-        className="rounded-xl shadow-lg w-full md:w-1/2 object-cover"
-      />
-
-      {/* Feature List */}
-      <div className="md:w-1/2 space-y-6">
-        {[
-          {
-            title: "Qualified Educators",
-            icon: "bi bi-mortarboard",
-            desc: "Our experienced teachers are passionate about student success and use innovative teaching methods.",
-            color: "bg-blue-600",
-          },
-          {
-            title: "Proven Results",
-            icon: "bi bi-trophy",
-            desc: "Consistently high pass rates and university acceptance records demonstrate our commitment to excellence.",
-            color: "bg-green-600",
-          },
-          {
-            title: "Small Class Sizes",
-            icon: "bi bi-people",
-            desc: "Personalized attention ensures every student receives the support they need to succeed.",
-            color: "bg-yellow-400",
-          },
-        ].map((item, index) => (
-          <div key={index} className="flex items-start space-x-4">
-            {/* Icon Badge */}
-            <div
-              className={`${item.color} text-white p-2 w-10 h-10 flex items-center justify-center rounded-md shadow-md`}
-            >
-              <i className={`${item.icon} text-lg`}></i>
-            </div>
-
-            {/* Text Content */}
-            <div>
-              <h3 className="text-lg font-bold text-yellow-400">{item.title}</h3>
-              <p className="text-gray-200">{item.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-</section>
-
-      {/* Courses Section */}
-<section id="courses" className="py-16 bg-navy">
-  <div className="container mx-auto px-4">
-    {/* Section Heading */}
-    <h2 className="text-3xl font-bold text-center text-yellow-400 mb-6">
-      Courses & Subjects Offered
-    </h2>
-    <p className="text-center text-gray-300 mb-12 max-w-3xl mx-auto">
-      Comprehensive curriculum designed to prepare students for university entrance and future career success.
-    </p>
-
-    {/* Cards Grid */}
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {[
-        {
-          title: "Core Subjects",
-          color: "bg-purple-600",
-          icon: "bi bi-book",
-          list: [
-            "Mathematics",
-            "Agricultural Sciences",
-            "Physical Sciences",
-            "Life Sciences",
-            "History",
-            "Geography",
-            "Mathematical Literacy",
-            "Natural Sciences",
-            "Technology"
-          ],
-        },
-        {
-          title: "Additional Classes",
-          color: "bg-green-600",
-          icon: "bi bi-laptop",
-          list: [
-            "Basic Computing",
-            "Basic Programming",
-            "Digital Literacy"
-          ],
-        },
-        {
-          title: "Guidance & Support",
-          color: "bg-yellow-400",
-          icon: "bi bi-people",
-          list: [
-            "Career Guidance",
-            "Psychological Support",
-            "Study Skills Workshops"
-          ],
-        },
-      ].map((course, index) => (
-        <div
-          key={index}
-          className={`${course.color} text-white p-6 rounded-xl shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-xl`}
-        >
-          {/* Icon */}
-          <div className="text-3xl mb-4">
-            <i className={`${course.icon} text-white`}></i>
-          </div>
-
-          {/* Title */}
-          <h3 className="text-xl font-bold mb-4">{course.title}</h3>
-
-          {/* List */}
-          <ul className="space-y-2">
-            {course.list.map((item, i) => (
-              <li key={i} className="flex items-center">
-               <i className="bi bi-check-circle-fill text-cyan-500 me-2 text-lg"></i>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
-
-     {/* Grades Section */}
-<section id="grades" className="py-16 bg-gray-900">
-  <div className="container mx-auto px-4">
-    {/* Section Heading */}
-    <h2 className="text-3xl font-bold text-center text-yellow-400 mb-6">
-      Grade Levels We Serve
-    </h2>
-    <p className="text-center text-gray-300 mb-12 max-w-3xl mx-auto">
-      Comprehensive education pathway from Grade 7 through Grade 12, preparing students for university and beyond.
-    </p>
-
-    {/* Cards Grid */}
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {[
-        {
-          title: "Grades 7-8",
-          subtitle: "Foundation Phase - Building essential skills and knowledge",
-          color: "border-blue-600",
-          items: ["Core subject introduction", "Study skills development", "Creative exploration"],
-        },
-        {
-          title: "Grades 9-10",
-          subtitle: "Intermediate Phase - Subject specialization begins",
-          color: "border-yellow-400",
-          items: ["Subject choice guidance", "Career exploration", "Advanced skill building"],
-        },
-        {
-          title: "Grades 11-12",
-          subtitle: "Senior Phase - University preparation focus",
-          color: "border-red-600",
-          items: ["Matric examination prep", "University application support", "Career counseling"],
-        },
-      ].map((grade, index) => (
-        <div
-          key={index}
-          className={`p-6 rounded-xl shadow-lg border-l-4 ${grade.color} bg-gray-800 transition-transform duration-300 hover:scale-105 hover:shadow-xl`}
-        >
-          <h3 className="text-xl font-bold text-yellow-400 mb-2">{grade.title}</h3>
-          <p className="text-gray-300 mb-4 text-sm">{grade.subtitle}</p>
-          <ul className="space-y-3">
-            {grade.items.map((item, i) => (
-              <li key={i} className="flex items-center text-gray-100">
-                <i className="bi bi-check-circle-fill text-green-400 me-2 text-lg"></i>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
-
-    {/* Achievements / Grade 12 Results */}
-<section id="achievements" className="py-16 bg-navy">
-  <div className="container mx-auto px-4">
-    {/* Section Heading */}
-    <h2 className="text-3xl font-bold text-center text-yellow-400 mb-6">
-      Grade 12 Academic Excellence
-    </h2>
-    <p className="text-center text-gray-300 mb-12 max-w-3xl mx-auto">
-      Consistently outstanding results that open doors to universities, colleges, and careers.
-    </p>
-
-    {/* Results Grid */}
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {[
-        {
-          year: "2025",
-          passRate: "--",
-          bachelors: "--",
-          diplomas: "--",
-          higherCertificate: "--",
-          State: "In Progress",
-        },
-        {
-          year: "2024",
-          passRate: "98%",
-          bachelors: "76%",
-          diplomas: "18%",
-          higherCertificate: "4%",
-          State: "Done",
-        },
-        {
-          year: "2023",
-          passRate: "98%",
-          bachelors: "76%",
-          diplomas: "18%",
-          higherCertificate: "4%",
-           State: "Done",
-        },
-        {
-          year: "2022",
-          passRate: "95%",
-          bachelors: "70%",
-          diplomas: "20%",
-          higherCertificate: "5%",
-           State: "Done",
-        },
-        {
-          year: "2021",
-          passRate: "93%",
-          bachelors: "65%",
-          diplomas: "22%",
-          higherCertificate: "6%",
-           State: "Done",
-        },
-      ].map((result, index) => (
-        <div
-          key={index}
-          className="p-6 border border-gray-700 rounded-xl bg-gray-800 shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
-        >
-          {/* Year Badge */}
-          <div className="text-yellow-400 font-bold text-xl mb-4 text-center">
-            📅 {result.year}
-          </div>
-
-          {/* Stats */}
-          <div className="space-y-3">
-            <div className="flex justify-between py-2 border-b border-gray-700">
-              <span className="text-gray-300">Pass Rate</span>
-              <span className="font-bold text-white">{result.passRate}</span>
-            </div>
-
-            <div className="flex justify-between py-2 border-b border-gray-700">
-              <span className="text-gray-300">Bachelor's</span>
-              <span className="font-bold text-green-400">{result.bachelors}</span>
-            </div>
-
-            <div className="flex justify-between py-2 border-b border-gray-700">
-              <span className="text-gray-300">Diploma</span>
-              <span className="font-bold text-blue-400">{result.diplomas}</span>
-            </div>
-
-            <div className="flex justify-between py-2">
-              <span className="text-gray-300">Higher Cert</span>
-              <span className="font-bold text-yellow-300">{result.higherCertificate}</span>
-            </div>
-            <div className="flex justify-between py-2">
-              <span className="text-gray-300">State</span>
-              <span className="font-bold text-yellow-300">{result.State}</span>
-            </div>
-          
-          </div>
-
-          {/* Decorative Icon */}
-          <div className="text-center mt-5">
-            <i className="bi bi-trophy-fill text-yellow-500 opacity-30"></i>
-          </div>
-        </div>
-      ))}
-    </div>
-
-    {/* Summary Note */}
-    <div className="text-center mt-10 text-gray-400 text-sm">
-      <p>Results verified annually. Bachelor’s pass qualifies for university entrance.</p>
-    </div>
-  </div>
-</section>
-
-      {/* 3D Gallery Section */}
-      <section className="py-16 bg-gray-900">
+      <section id="about" className="py-16 bg-gray-900">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-yellow-400 mb-6">Our Learning Environment</h2>
-          <p className="text-center text-white mb-12 max-w-3xl mx-auto">
-            Take a virtual tour of our modern facilities and see where excellence happens.
+          <h2 className="text-3xl font-bold text-center text-yellow-400 mb-6">
+            About Thuto Thabeng Learning Center
+          </h2>
+          <p className="text-center text-gray-300 mb-12 max-w-3xl mx-auto">
+            Dedicated to providing quality education and nurturing future leaders through comprehensive academic programs from Grade 7 to Grade 12.
           </p>
 
-          <div className="gallery-container">
-            <div className="gallery-track">
+          <div className="flex flex-col md:flex-row items-center gap-12">
+            <img
+              src={img1}
+              alt="Students studying in our library"
+              className="rounded-xl shadow-lg w-full md:w-1/2 object-cover"
+            />
+
+            <div className="md:w-1/2 space-y-6">
               {[
-  {
-    id: 1,
-    title: "Modern Classrooms",
-    description: "State-of-the-art learning spaces designed for engagement",
-    image: "./src/assets/Gallery/1.png"
-  },
-  {
-    id: 2,
-    title: "Science Laboratory",
-    description: "Fully equipped labs for hands-on scientific exploration",
-    image: "./src/assets/Gallery/2.png"
-  },
-  {
-    id: 3,
-    title: "Library & Study Areas",
-    description: "Quiet spaces for focused learning and research",
-    image: "./src/assets/Gallery/3.png"
-  },
-  {
-    id: 4,
-    title: "Computer Lab",
-    description: "Modern technology for digital literacy and coding",
-    image: "./src/assets/Gallery/4.png"
-  },
-  {
-    id: 5,
-    title: "Sports Facilities",
-    description: "Active learning spaces for physical education",
-    image: "./src/assets/Gallery/5.png"
-  },
-  {
-    id: 6,
-    title: "Art Studio",
-    description: "Creative spaces for artistic expression and development",
-    image: "./src/assets/Gallery/6.png"
-  }
-]
-.map((item) => (
-                <div key={item.id} className="gallery-card">
-                  <div className="gallery-card-inner">
-                    <div className="gallery-card-front">
-                      <img 
-                        src={item.image} 
-                        alt={item.title}
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="gallery-overlay">
-                        <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
-                      </div>
-                    </div>
-                    <div className="gallery-card-back">
-                      <div className="p-6 h-full flex flex-col justify-center">
-                        <h3 className="text-xl font-bold text-yellow-400 mb-4">{item.title}</h3>
-                        <p className="text-white text-sm leading-relaxed">{item.description}</p>
-                        <div className="mt-4">
-                          <button className="bg-yellow-400 text-navy px-4 py-2 rounded-md font-semibold hover:bg-yellow-500 transition">
-                            Learn More
-                          </button>
-                        </div>
-                      </div>
-                    </div>
+                {
+                  title: "Qualified Educators",
+                  icon: "bi bi-mortarboard",
+                  desc: "Our experienced teachers are passionate about student success and use innovative teaching methods.",
+                  color: "bg-blue-600",
+                },
+                {
+                  title: "Proven Results",
+                  icon: "bi bi-trophy",
+                  desc: "Consistently high pass rates and university acceptance records demonstrate our commitment to excellence.",
+                  color: "bg-green-600",
+                },
+                {
+                  title: "Small Class Sizes",
+                  icon: "bi bi-people",
+                  desc: "Personalized attention ensures every student receives the support they need to succeed.",
+                  color: "bg-yellow-400",
+                },
+              ].map((item, index) => (
+                <div key={index} className="flex items-start space-x-4">
+                  <div
+                    className={`${item.color} text-white p-2 w-10 h-10 flex items-center justify-center rounded-md shadow-md`}
+                  >
+                    <i className={`${item.icon} text-lg`}></i>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-yellow-400">{item.title}</h3>
+                    <p className="text-gray-200">{item.desc}</p>
                   </div>
                 </div>
               ))}
@@ -579,6 +254,191 @@ function App() {
           </div>
         </div>
       </section>
+
+      {/* Courses Section */}
+      <section id="courses" className="py-16 bg-navy">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center text-yellow-400 mb-6">
+            Courses & Subjects Offered
+          </h2>
+          <p className="text-center text-gray-300 mb-12 max-w-3xl mx-auto">
+            Comprehensive curriculum designed to prepare students for university entrance and future career success.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Core Subjects",
+                color: "bg-purple-600",
+                icon: "bi bi-book",
+                list: [
+                  "Mathematics",
+                  "Agricultural Sciences",
+                  "Physical Sciences",
+                  "Life Sciences",
+                  "History",
+                  "Geography",
+                  "Mathematical Literacy",
+                  "Natural Sciences",
+                  "Technology"
+                ],
+              },
+              {
+                title: "Additional Classes",
+                color: "bg-green-600",
+                icon: "bi bi-laptop",
+                list: [
+                  "Basic Computing",
+                  "Basic Programming",
+                  "Digital Literacy"
+                ],
+              },
+              {
+                title: "Guidance & Support",
+                color: "bg-yellow-400",
+                icon: "bi bi-people",
+                list: [
+                  "Career Guidance",
+                  "Psychological Support",
+                  "Study Skills Workshops"
+                ],
+              },
+            ].map((course, index) => (
+              <div
+                key={index}
+                className={`${course.color} text-white p-6 rounded-xl shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-xl`}
+              >
+                <div className="text-3xl mb-4">
+                  <i className={`${course.icon} text-white`}></i>
+                </div>
+                <h3 className="text-xl font-bold mb-4">{course.title}</h3>
+                <ul className="space-y-2">
+                  {course.list.map((item, i) => (
+                    <li key={i} className="flex items-center">
+                      <i className="bi bi-check-circle-fill text-cyan-500 me-2 text-lg"></i>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Grades Section */}
+      <section id="grades" className="py-16 bg-gray-900">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center text-yellow-400 mb-6">
+            Grade Levels We Serve
+          </h2>
+          <p className="text-center text-gray-300 mb-12 max-w-3xl mx-auto">
+            Comprehensive education pathway from Grade 7 through Grade 12, preparing students for university and beyond.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Grades 7-8",
+                subtitle: "Foundation Phase - Building essential skills and knowledge",
+                color: "border-blue-600",
+                items: ["Core subject introduction", "Study skills development", "Creative exploration"],
+              },
+              {
+                title: "Grades 9-10",
+                subtitle: "Intermediate Phase - Subject specialization begins",
+                color: "border-yellow-400",
+                items: ["Subject choice guidance", "Career exploration", "Advanced skill building"],
+              },
+              {
+                title: "Grades 11-12",
+                subtitle: "Senior Phase - University preparation focus",
+                color: "border-red-600",
+                items: ["Matric examination prep", "University application support", "Career counseling"],
+              },
+            ].map((grade, index) => (
+              <div
+                key={index}
+                className={`p-6 rounded-xl shadow-lg border-l-4 ${grade.color} bg-gray-800 transition-transform duration-300 hover:scale-105 hover:shadow-xl`}
+              >
+                <h3 className="text-xl font-bold text-yellow-400 mb-2">{grade.title}</h3>
+                <p className="text-gray-300 mb-4 text-sm">{grade.subtitle}</p>
+                <ul className="space-y-3">
+                  {grade.items.map((item, i) => (
+                    <li key={i} className="flex items-center text-gray-100">
+                      <i className="bi bi-check-circle-fill text-green-400 me-2 text-lg"></i>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Achievements Section */}
+      <section id="achievements" className="py-16 bg-navy">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center text-yellow-400 mb-6">
+            Grade 12 Academic Excellence
+          </h2>
+          <p className="text-center text-gray-300 mb-12 max-w-3xl mx-auto">
+            Consistently outstanding results that open doors to universities, colleges, and careers.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { year: "2025", passRate: "--", bachelors: "--", diplomas: "--", higherCertificate: "--", State: "In Progress" },
+              { year: "2024", passRate: "98%", bachelors: "76%", diplomas: "18%", higherCertificate: "4%", State: "Done" },
+              { year: "2023", passRate: "98%", bachelors: "76%", diplomas: "18%", higherCertificate: "4%", State: "Done" },
+              { year: "2022", passRate: "95%", bachelors: "70%", diplomas: "20%", higherCertificate: "5%", State: "Done" },
+              { year: "2021", passRate: "93%", bachelors: "65%", diplomas: "22%", higherCertificate: "6%", State: "Done" },
+            ].map((result, index) => (
+              <div
+                key={index}
+                className="p-6 border border-gray-700 rounded-xl bg-gray-800 shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+              >
+                <div className="text-yellow-400 font-bold text-xl mb-4 text-center">
+                  📅 {result.year}
+                </div>
+                <div className="space-y-3">
+                  <div className="flex justify-between py-2 border-b border-gray-700">
+                    <span className="text-gray-300">Pass Rate</span>
+                    <span className="font-bold text-white">{result.passRate}</span>
+                  </div>
+                  <div className="flex justify-between py-2 border-b border-gray-700">
+                    <span className="text-gray-300">Bachelor's</span>
+                    <span className="font-bold text-green-400">{result.bachelors}</span>
+                  </div>
+                  <div className="flex justify-between py-2 border-b border-gray-700">
+                    <span className="text-gray-300">Diploma</span>
+                    <span className="font-bold text-blue-400">{result.diplomas}</span>
+                  </div>
+                  <div className="flex justify-between py-2">
+                    <span className="text-gray-300">Higher Cert</span>
+                    <span className="font-bold text-yellow-300">{result.higherCertificate}</span>
+                  </div>
+                  <div className="flex justify-between py-2">
+                    <span className="text-gray-300">State</span>
+                    <span className="font-bold text-yellow-300">{result.State}</span>
+                  </div>
+                </div>
+                <div className="text-center mt-5">
+                  <i className="bi bi-trophy-fill text-yellow-500 opacity-30"></i>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-10 text-gray-400 text-sm">
+            <p>Results verified annually. Bachelor’s pass qualifies for university entrance.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery Component */}
+      <Gallery />
 
       {/* Contact Section */}
       <section id="contact" className="py-16 bg-navy">
@@ -663,6 +523,52 @@ function App() {
         </div>
       </footer>
     </div>
+  );
+}
+
+// ✅ Named export for Gallery
+export function Gallery() {
+  const galleryItems = [
+    { id: 1, title: "Modern Classrooms", description: "State-of-the-art learning spaces designed for engagement", image: img1 },
+    { id: 2, title: "Science Laboratory", description: "Fully equipped labs for hands-on scientific exploration", image: img2 },
+    { id: 3, title: "Library & Study Areas", description: "Quiet spaces for focused learning and research", image: img3 },
+    { id: 4, title: "Computer Lab", description: "Modern technology for digital literacy and coding", image: img4 },
+    { id: 5, title: "Sports Facilities", description: "Active learning spaces for physical education", image: img5 },
+    { id: 6, title: "Art Studio", description: "Creative spaces for artistic expression and development", image: img6 },
+  ];
+
+  return (
+    <section className="py-16 bg-gray-900">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center text-yellow-400 mb-6">
+          Our Learning Environment
+        </h2>
+        <p className="text-center text-white mb-12 max-w-3xl mx-auto">
+          Take a virtual tour of our modern facilities and see where excellence happens.
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          {galleryItems.map((item) => (
+            <div key={item.id} className="gallery-card relative group">
+              <img
+                src={item.image}
+                alt={item.title}
+                className="w-full h-64 object-cover rounded-xl"
+              />
+              <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="text-center text-white p-4">
+                  <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                  <p className="text-sm mb-4">{item.description}</p>
+                  <button className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-md font-semibold hover:bg-yellow-500 transition">
+                    Learn More
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
