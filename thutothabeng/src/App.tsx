@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import './App.css';
 import logo from "./assets/Logo.png";
+import hero from "./assets/hero.png";
 // Gallery images imports
 import gallery1 from "./assets/Gallery/1.png";
 import gallery2 from "./assets/Gallery/2.png";
@@ -136,7 +137,7 @@ function App() {
       <section 
         id="home" 
         className="relative bg-navy text-white py-20 bg-cover bg-center bg-no-repeat hero-gradient"
-        style={{ backgroundImage: `url(${gallery1})` }}
+        style={{ backgroundImage: `url(${hero})` }}
       >
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-10 md:mb-0">
@@ -148,10 +149,16 @@ function App() {
               Empowering students to achieve academic excellence and prepare for university success through innovative teaching methods and personalized support.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <button className="bg-yellow-400 hover:bg-cyan-500 text-navy font-semibold px-6 py-3 rounded-md transition">
+              <button 
+                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                className="bg-yellow-400 hover:bg-cyan-500 text-navy font-semibold px-6 py-3 rounded-md transition"
+              >
                 Book a Session
               </button>
-              <button className="bg-yellow-400 hover:bg-cyan-500 text-navy font-semibold px-6 py-3 rounded-md transition">
+              <button 
+                onClick={() => document.getElementById('about-us')?.scrollIntoView({ behavior: 'smooth' })}
+                className="bg-yellow-400 hover:bg-cyan-500 text-navy font-semibold px-6 py-3 rounded-md transition"
+              >
                 Learn More
               </button>
             </div>
@@ -481,7 +488,7 @@ function App() {
             const [isSent, setIsSent] = useState(false);
             const [isError, setIsError] = useState(false);
             const [isLoading, setIsLoading] = useState(false);
-           const formRef = useRef<HTMLFormElement>(null); // ✅ Correct useRef
+           const formRef = useRef<HTMLFormElement>(null); // 
 
             const sendEmail = (e: { preventDefault: () => void; }) => {
               e.preventDefault();
@@ -535,7 +542,7 @@ function App() {
               <div className="max-w-3xl mx-auto bg-gray-800 p-8 rounded-xl shadow-lg">
                 {isSent && (
                   <div className="mb-6 p-4 bg-green-600 text-white text-center rounded-md">
-                    ✅ Thank you! Your message has been sent successfully.
+                    Thank you! Your message has been sent successfully.
                   </div>
                 )}
                 {isError && (
