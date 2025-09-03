@@ -433,7 +433,7 @@ function App() {
       {/* Gallery */}
       <Gallery />
 
-      {/* Contact Section */}
+    {/* Contact Section */}
       <section id="contact" className="py-16 bg-navy">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center text-yellow-400 mb-6">Get In Touch</h2>
@@ -450,7 +450,7 @@ function App() {
             const [isSent, setIsSent] = useState(false);
             const [isError, setIsError] = useState(false);
             const [isLoading, setIsLoading] = useState(false);
-           const formRef = useRef<HTMLInputElement>(null); // ✅ Correct useRef
+           const formRef = useRef<HTMLFormElement>(null); // ✅ Correct useRef
 
             const sendEmail = (e: { preventDefault: () => void; }) => {
               e.preventDefault();
@@ -459,7 +459,7 @@ function App() {
               setIsError(false);
 
               emailjs
-                .sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, {
+                .sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current!, {
                   publicKey: PUBLIC_KEY,
                 })
                 .then(
@@ -467,7 +467,7 @@ function App() {
                     setIsLoading(false);
                     setIsSent(true);
                     setTimeout(() => setIsSent(false), 5000);
-                    formRef.current.reset();
+                    formRef.current!.reset();
                   },
                   (error) => {
                     console.error("EmailJS Error:", error);
@@ -487,7 +487,7 @@ function App() {
                 )}
                 {isError && (
                   <div className="mb-6 p-4 bg-red-600 text-white text-center rounded-md">
-                    ❌ Failed to send message. Please try again.
+                    Failed to send message. Please try again.
                   </div>
                 )}
 
