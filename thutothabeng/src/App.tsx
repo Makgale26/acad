@@ -1,13 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import './App.css';
 import logo from "./assets/Logo.png";
-import bgImage from "./assets/Gallery/1.png"; // ✅ Correct path
-import img1 from "./assets/Gallery/1.png";
-import img2 from "./assets/Gallery/2.png";
-import img3 from "./assets/Gallery/3.png";
-import img4 from "./assets/Gallery/4.png";
-import img5 from "./assets/Gallery/5.png";
-import img6 from "./assets/Gallery/6.png";
+// Gallery images imports
+import gallery1 from "./assets/Gallery/1.png";
+import gallery2 from "./assets/Gallery/2.png";
+import gallery3 from "./assets/Gallery/3.png";
+import gallery4 from "./assets/Gallery/4.png";
+import gallery5 from "./assets/Gallery/5.png";
+import gallery6 from "./assets/Gallery/6.png";
 import emailjs from '@emailjs/browser';
 
 function App() {
@@ -136,7 +136,7 @@ function App() {
       <section 
         id="home" 
         className="relative bg-navy text-white py-20 bg-cover bg-center bg-no-repeat hero-gradient"
-        style={{ backgroundImage: `url(${bgImage})` }}
+        style={{ backgroundImage: `url(${gallery1})` }}
       >
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-10 md:mb-0">
@@ -205,7 +205,7 @@ function App() {
 
           <div className="flex flex-col md:flex-row items-center gap-12">
             <img
-              src={img1}
+              src={gallery2}
               alt="Students studying in our library"
               className="rounded-xl shadow-lg w-full md:w-1/2 object-cover"
             />
@@ -431,7 +431,38 @@ function App() {
       </section>
 
       {/* Gallery */}
-      <Gallery />
+      <section id="gallery" className="py-16 bg-gray-900">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center text-yellow-400 mb-6">
+            Our Learning Environment
+          </h2>
+          <p className="text-center text-gray-300 mb-12 max-w-3xl mx-auto">
+            Take a look at our modern facilities and learning spaces designed for student success.
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { src: gallery1, alt: "Classroom environment" },
+              { src: gallery2, alt: "Students studying" },
+              { src: gallery3, alt: "Library facility" },
+              { src: gallery4, alt: "Computer lab" },
+              { src: gallery5, alt: "Science laboratory" },
+              { src: gallery6, alt: "School exterior" },
+            ].map((image, index) => (
+              <div
+                key={index}
+                className="rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+              >
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
     {/* Contact Section */}
       <section id="contact" className="py-16 bg-navy">
@@ -442,10 +473,10 @@ function App() {
           </p>
 
           {(() => {
-            // 🔁 REPLACE THESE WITH YOUR ACTUAL KEYS FROM EMAILJS
-            const SERVICE_ID = "service_your_id";      // ← e.g., "service_abc123"
-            const TEMPLATE_ID = "template_your_id";    // ← e.g., "template_xyz789"
-            const PUBLIC_KEY = "your_public_key";      // ← e.g., "pub_key_123456"
+            // Using environment variables from Replit Secrets
+            const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "";
+            const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "";
+            const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "";
 
             const [isSent, setIsSent] = useState(false);
             const [isError, setIsError] = useState(false);
@@ -458,12 +489,33 @@ function App() {
               setIsSent(false);
               setIsError(false);
 
+              // Debug logging
+              console.log("Environment variables:", {
+                SERVICE_ID,
+                TEMPLATE_ID,
+                PUBLIC_KEY: PUBLIC_KEY ? "***" + PUBLIC_KEY.slice(-4) : "empty"
+              });
+
+              // Check if all required fields are present
+              if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+                console.error("Missing EmailJS configuration:", {
+                  hasServiceId: !!SERVICE_ID,
+                  hasTemplateId: !!TEMPLATE_ID,
+                  hasPublicKey: !!PUBLIC_KEY
+                });
+                setIsLoading(false);
+                setIsError(true);
+                setTimeout(() => setIsError(false), 5000);
+                return;
+              }
+
               emailjs
                 .sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current!, {
                   publicKey: PUBLIC_KEY,
                 })
                 .then(
                   () => {
+                    console.log("Email sent successfully!");
                     setIsLoading(false);
                     setIsSent(true);
                     setTimeout(() => setIsSent(false), 5000);
@@ -471,6 +523,7 @@ function App() {
                   },
                   (error) => {
                     console.error("EmailJS Error:", error);
+                    console.error("Error details:", error.text || error.message);
                     setIsLoading(false);
                     setIsError(true);
                     setTimeout(() => setIsError(false), 5000);
@@ -580,50 +633,5 @@ function App() {
   );
 }
 
-// ✅ Gallery Component (Moved before usage)
-export function Gallery() {
-  const galleryItems = [
-    { id: 1, title: "Modern Classrooms", description: "State-of-the-art learning spaces designed for engagement", image: img1 },
-    { id: 2, title: "Science Laboratory", description: "Fully equipped labs for hands-on scientific exploration", image: img2 },
-    { id: 3, title: "Library & Study Areas", description: "Quiet spaces for focused learning and research", image: img3 },
-    { id: 4, title: "Computer Lab", description: "Modern technology for digital literacy and coding", image: img4 },
-    { id: 5, title: "Sports Facilities", description: "Active learning spaces for physical education", image: img5 },
-    { id: 6, title: "Art Studio", description: "Creative spaces for artistic expression and development", image: img6 },
-  ];
-
-  return (
-    <section className="py-16 bg-gray-900">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center text-yellow-400 mb-6">
-          Our Learning Environment
-        </h2>
-        <p className="text-center text-white mb-12 max-w-3xl mx-auto">
-          Take a virtual tour of our modern facilities and see where excellence happens.
-        </p>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          {galleryItems.map((item) => (
-            <div key={item.id} className="gallery-card relative group">
-              <img
-                src={item.image}
-                alt={item.title}
-                className="w-full h-64 object-cover rounded-xl"
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="text-center text-white p-4">
-                  <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                  <p className="text-sm mb-4">{item.description}</p>
-                  <button className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-md font-semibold hover:bg-yellow-500 transition">
-                    Learn More
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 export default App;
