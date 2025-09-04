@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import './App.css';
 import logo from "./assets/Logo.png";
-import hero from "./assets/hero.png";
 // Gallery images imports
 import gallery1 from "./assets/Gallery/1.png";
 import gallery2 from "./assets/Gallery/2.png";
@@ -9,17 +8,26 @@ import gallery3 from "./assets/Gallery/3.png";
 import gallery4 from "./assets/Gallery/4.png";
 import gallery5 from "./assets/Gallery/5.png";
 import gallery6 from "./assets/Gallery/6.png";
+import gallery7 from "./assets/Gallery/7.png";
+import gallery8 from "./assets/Gallery/8.png";
 import emailjs from '@emailjs/browser';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
+  const [activeSection, setActiveSection] = useState("home");
 
-  const navItems = ['Home', 'About Us', 'Courses', 'Grades', 'Achievements', 'Contact'];
+  const navItems = [
+    "Home",
+    "About Us",
+    "Courses",
+    "Grades",
+    "Achievements",
+    "Contact",
+  ];
 
   useEffect(() => {
-    const sections = navItems.map(item =>
-      item.toLowerCase().replace(/\s+/g, '-')
+    const sections = navItems.map((item) =>
+      item.toLowerCase().replace(/\s+/g, "-"),
     );
 
     const observers = sections.map((section) => {
@@ -33,7 +41,7 @@ function App() {
             setActiveSection(section);
           }
         },
-        { threshold: 0.6 }
+        { threshold: 0.6 },
       );
 
       observer.observe(element);
@@ -54,14 +62,20 @@ function App() {
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
-              <img src={logo} alt="Thuto Thabeng Logo" className="w-10 h-10 object-contain" />
+              <img
+                src={logo}
+                alt="Thuto Thabeng Logo"
+                className="w-10 h-10 object-contain"
+              />
             </div>
-            <span className="text-xl font-bold text-white">Thuto Thabeng Learning Center</span>
+            <span className="text-xl font-bold text-white">
+              Thuto Thabeng Learning Center
+            </span>
           </div>
 
           <ul className="hidden md:flex space-x-8">
             {navItems.map((item) => {
-              const sectionId = item.toLowerCase().replace(/\s+/g, '-');
+              const sectionId = item.toLowerCase().replace(/\s+/g, "-");
               const isActive = activeSection === sectionId;
 
               return (
@@ -69,9 +83,10 @@ function App() {
                   <a
                     href={`#${sectionId}`}
                     className={`font-medium transition-colors duration-300
-                      ${isActive 
-                        ? 'text-cyan-500' 
-                        : 'text-gray-200 hover:text-yellow-400'
+                      ${
+                        isActive
+                          ? "text-cyan-500 underline-color-cyan-950"
+                          : "text-gray-200 hover:text-yellow-400"
                       }
                     `}
                   >
@@ -96,9 +111,19 @@ function App() {
               stroke="currentColor"
             >
               {isMenuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               )}
             </svg>
           </button>
@@ -106,19 +131,20 @@ function App() {
 
         {isMenuOpen && (
           <div className="md:hidden bg-navy border-t border-gray-700">
-            <ul className="container mx-auto px-4 py-4 space-y-4">
+            <ul className="container mx-auto px-4 py-2 space-y-1">
               {navItems.map((item) => {
-                const sectionId = item.toLowerCase().replace(/\s+/g, '-');
+                const sectionId = item.toLowerCase().replace(/\s+/g, "-");
                 const isActive = activeSection === sectionId;
 
                 return (
                   <li key={item}>
                     <a
                       href={`#${sectionId}`}
-                      className={`block font-medium py-2
-                        ${isActive 
-                          ? 'text-cyan-500' 
-                          : 'text-gray-200 hover:text-yellow-400'
+                      className={`block font-medium py-1 px-2 rounded text-sm
+                        ${
+                          isActive
+                            ? "text-cyan-500 bg-gray-800"
+                            : "text-gray-200 hover:text-yellow-400 hover:bg-gray-800"
                         }
                       `}
                       onClick={() => setIsMenuOpen(false)}
@@ -136,8 +162,8 @@ function App() {
       {/* Hero Section */}
       <section 
         id="home" 
-        className="relative bg-navy text-white py-20 bg-cover bg-center bg-no-repeat hero-gradient"
-        style={{ backgroundImage: `url(${hero})` }}
+        className="hero-gradient h-[90vh] flex items-center justify-center text-center text-navy brightness-70"
+        style={{ backgroundImage: `url(${gallery7})` }}
       >
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-10 md:mb-0">
@@ -163,7 +189,7 @@ function App() {
               </button>
             </div>
           </div>
-          <div className="md:w-1/2 flex justify-center">
+          <div className="md:w-1/2 flex justify-center" >
             <div className="w-full max-w-md">
               <div className="bg-gray-800 bg-opacity-50 p-8 rounded-xl shadow-xl border border-yellow-400 hover:shadow-yellow-400/30 transition">
                 <div className="text-center space-y-4">
@@ -212,7 +238,7 @@ function App() {
 
           <div className="flex flex-col md:flex-row items-center gap-12">
             <img
-              src={gallery2}
+              src={gallery5}
               alt="Students studying in our library"
               className="rounded-xl shadow-lg w-full md:w-1/2 object-cover"
             />
@@ -453,7 +479,7 @@ function App() {
               { src: gallery2, alt: "Students studying" },
               { src: gallery3, alt: "Library facility" },
               { src: gallery4, alt: "Computer lab" },
-              { src: gallery5, alt: "Science laboratory" },
+              { src: gallery8, alt: "Science laboratory" },
               { src: gallery6, alt: "School exterior" },
             ].map((image, index) => (
               <div
